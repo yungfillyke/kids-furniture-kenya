@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ArrowRight, Menu, X, Heart, ShieldCheck, Truck, MessageCircle, Sparkles, ChevronDown } from "lucide-react";
+import { ArrowRight, Menu, X, Heart, ShieldCheck, Truck, MessageCircle, Sparkles } from "lucide-react";
 
 const products = [
   { name: "Dreamy Kids Beds", category: "Beds", tag: "Made for sweet dreams", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85" },
@@ -87,7 +87,7 @@ export default function Home() {
 
     <section className="enquiry section" id="enquiry">
       <div className="enquiry-copy"><div className="eyebrow">LET'S MAKE THEIR SPACE SPECIAL</div><h2>Have a little idea? <span>Let's build on it.</span></h2><p>Looking for a particular size, colour or design? Tell us what you have in mind and start a conversation with our team.</p><div className="enquiry-promise"><span>♡</span> Your idea, your space, let's talk.</div></div>
-      <form className="enquiry-form" action={undefined} onSubmit={e => { e.preventDefault(); sendEnquiry(new FormData(e.currentTarget)); }}>
+      <form className="enquiry-form" onSubmit={e => { e.preventDefault(); sendEnquiry(new FormData(e.currentTarget)); }}>
         <div className="form-title">Tell us what you're dreaming of <span>✳</span></div>
         <label>Your name<input name="name" placeholder="e.g. Jane" required/></label>
         <label>Phone number<input name="phone" type="tel" placeholder="e.g. 07XX XXX XXX" required/></label>
