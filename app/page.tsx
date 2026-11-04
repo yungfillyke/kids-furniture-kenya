@@ -86,11 +86,11 @@ export default function Home() {
 
     <section className="feature" id="about">
       <div className="feature-image"><img src="https://images.pexels.com/photos/8535156/pexels-photo-8535156.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Cosy and colourful home interior"/></div>
-      <div className="feature-copy"><div className="eyebrow">A WORLD BUILT AROUND THEM</div><h2>Childhood is a big adventure. <span>Give it room.</span></h2><p>We believe children's spaces should be joyful, practical and full of possibility. Kids Furniture Kenya is here to help you create a room your little one will love growing up in.</p><a className="text-link" href="#enquiry">Let's create something lovely <ArrowRight size={17}/></a><div className="feature-stamp">MADE WITH<br/>LITTLE ONES<br/>IN MIND <span>✳</span></div></div>
+      <div className="feature-copy"><div className="eyebrow">A WORLD BUILT AROUND THEM</div><h2>Childhood is a big adventure. <span>Give it room.</span></h2><p>We believe children&apos;s spaces should be joyful, practical and full of possibility. Kids Furniture Kenya is here to help you create a room your little one will love growing up in.</p><a className="text-link" href="#enquiry">Let&apos;s create something lovely <ArrowRight size={17}/></a><div className="feature-stamp">MADE WITH<br/>LITTLE ONES<br/>IN MIND <span>✳</span></div></div>
     </section>
 
     <section className="enquiry section" id="enquiry">
-      <div className="enquiry-copy"><div className="eyebrow">LET'S MAKE THEIR SPACE SPECIAL</div><h2>Have a little idea? <span>Let's build on it.</span></h2><p>Looking for a particular size, colour or design? Tell us what you have in mind and start a conversation with our team.</p><div className="enquiry-promise"><span>♡</span> Your idea, your space, let's talk.</div></div>
+      <div className="enquiry-copy"><div className="eyebrow">LET'S MAKE THEIR SPACE SPECIAL</div><h2>Have a little idea? <span>Let&apos;s build on it.</span></h2><p>Looking for a particular size, colour or design? Tell us what you have in mind and start a conversation with our team.</p><div className="enquiry-promise"><span>♡</span> Your idea, your space, let's talk.</div></div>
       <form className="enquiry-form" onSubmit={e => { e.preventDefault(); sendEnquiry(new FormData(e.currentTarget)); }}>
         <div className="form-title">Tell us what you're dreaming of <span>✳</span></div>
         <label>Your name<input name="name" placeholder="e.g. Jane" required/></label>
