@@ -13,6 +13,7 @@ const products = [
   { name: "Chairs & Playroom Pieces", category: "Playroom", tag: "Room for imagination", image: "https://images.pexels.com/photos/8923989/pexels-photo-8923989.jpeg?auto=compress&cs=tinysrgb&w=900" },
 ];
 const categories = ["All", "Beds", "Study", "Storage", "Playroom"];
+const enquiryOptions = ["Kids bed", "Bunk bed", "Study desk or chair", "Toy or clothes storage", "Wardrobe", "Playroom furniture", "Custom furniture", "Something else"];
 
 function Brand() {
   return <a className="brand" href="#" aria-label="Kids Furniture Kenya home"><span className="brand-kids">KIDS</span><span className="brand-furniture">FÜRNITÜRE</span><span className="brand-kenya">KENYA</span></a>;
@@ -22,6 +23,7 @@ export default function Home() {
   const [active, setActive] = useState("All");
   const [menuOpen, setMenuOpen] = useState(false);
   const [sent, setSent] = useState(false);
+  const [interest, setInterest] = useState("");
   const visible = useMemo(() => active === "All" ? products : products.filter(p => p.category === active), [active]);
 
   function sendEnquiry(formData: FormData) {
@@ -34,7 +36,7 @@ export default function Home() {
     setSent(true);
   }
 
-  return <main>
+  return <main id="top">
     <div className="announcement">Thoughtful furniture for little people <span>♡</span> Proudly Kenyan</div>
     <header className="header">
       <Brand />
@@ -72,9 +74,9 @@ export default function Home() {
 
     <section className="collections section" id="collections">
       <div className="section-heading"><div><div className="eyebrow">A LITTLE SOMETHING FOR EVERY ROOM</div><h2>Find their <span>happy place.</span></h2></div><p>From bedtime to playtime and everything in between, explore furniture for every little corner.</p></div>
-      <div className="filters" role="group" aria-label="Filter furniture categories">{categories.map(c => <button key={c} className={active === c ? "filter active" : "filter"} onClick={() => setActive(c)}>{c}</button>)}</div>
+      <div className="filters" role="group" aria-label="Filter furniture categories">{categories.map(c => <button key={c} className={active === c ? "filter active" : "filter"} aria-pressed={active === c} onClick={() => setActive(c)}>{c}</button>)}</div>
       <div className="product-grid">{visible.map((p, i) => <article className="product-card" key={p.name}>
-        <a href="#enquiry" className="product-image"><img src={p.image} alt={p.name}/><span className="product-number">0{i+1}</span><span className="image-arrow"><ArrowRight size={18}/></span></a>
+        <a href="#enquiry" className="product-image" onClick={() => setInterest(p.name.includes("Bunk") ? "Bunk bed" : p.name.includes("Bed") ? "Kids bed" : p.name.includes("Desk") ? "Study desk or chair" : p.name.includes("Wardrobe") ? "Wardrobe" : p.category === "Storage" ? "Toy or clothes storage" : "Playroom furniture")}><img src={p.image} alt={p.name + " inspiration"} loading="lazy" decoding="async"/><span className="product-number">0{i+1}</span><span className="image-arrow"><ArrowRight size={18}/></span></a>
         <div className="product-info"><div><span className="product-category">{p.category}</span><h3>{p.name}</h3><p>{p.tag}</p></div><a href="#enquiry" aria-label={`Enquire about ${p.name}`} className="round-arrow"><ArrowRight size={18}/></a></div>
         <div className="price-note">Ask us for options & pricing</div>
       </article>)}</div>
@@ -93,7 +95,7 @@ export default function Home() {
         <div className="form-title">Tell us what you're dreaming of <span>✳</span></div>
         <label>Your name<input name="name" placeholder="e.g. Jane" required/></label>
         <label>Phone number<input name="phone" type="tel" placeholder="e.g. 07XX XXX XXX" required/></label>
-        <label>What are you interested in?<select name="interest" defaultValue="" required><option value="" disabled>Choose a furniture type</option><option>Kids' bed</option><option>Bunk bed</option><option>Study desk or chair</option><option>Wardrobe or storage</option><option>Custom furniture</option><option>Something else</option></select></label>
+        <label>What are you interested in?<select name="interest" value={interest} onChange={e => setInterest(e.target.value)} required><option value="" disabled>Choose a furniture type</option>{enquiryOptions.map(option => <option key={option}>{option}</option>)}</select></label>
         <label>Tell us a little more<textarea name="message" rows={3} placeholder="Sizes, colours, ideas or questions..."/></label>
         <button className="button button-blue submit-button" type="submit">Send enquiry on WhatsApp <ArrowRight size={18}/></button>
         {sent && <p className="success-message">Your enquiry has been prepared in WhatsApp. Send it there to reach us.</p>}
