@@ -3,13 +3,14 @@
 import { useMemo, useState } from "react";
 import { ArrowRight, Menu, X, Heart, ShieldCheck, Truck, MessageCircle, Sparkles } from "lucide-react";
 
+// Temporary inspiration photography from Pexels. These are not confirmed Kids Furniture Kenya products.
 const products = [
-  { name: "Dreamy Kids Beds", category: "Beds", tag: "Made for sweet dreams", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85" },
-  { name: "Space-Saving Bunk Beds", category: "Beds", tag: "More room to play", image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=85" },
-  { name: "Little Learner Desks", category: "Study", tag: "Big ideas start here", image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85" },
-  { name: "Toy & Clothes Storage", category: "Storage", tag: "A place for everything", image: "https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=900&q=85" },
-  { name: "Kids' Wardrobes", category: "Storage", tag: "Made for growing up", image: "https://images.unsplash.com/photo-1558997519-83ea9252edf8?auto=format&fit=crop&w=900&q=85" },
-  { name: "Chairs & Playroom Pieces", category: "Playroom", tag: "Room for imagination", image: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=900&q=85" },
+  { name: "Dreamy Kids Beds", category: "Beds", tag: "Made for sweet dreams", image: "https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { name: "Space-Saving Bunk Beds", category: "Beds", tag: "More room to play", image: "https://images.pexels.com/photos/5008397/pexels-photo-5008397.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { name: "Little Learner Desks", category: "Study", tag: "Big ideas start here", image: "https://images.pexels.com/photos/9328035/pexels-photo-9328035.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { name: "Toy & Clothes Storage", category: "Storage", tag: "A place for everything", image: "https://images.pexels.com/photos/7045947/pexels-photo-7045947.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { name: "Kids' Wardrobes", category: "Storage", tag: "Made for growing up", image: "https://images.pexels.com/photos/7587810/pexels-photo-7587810.jpeg?auto=compress&cs=tinysrgb&w=900" },
+  { name: "Chairs & Playroom Pieces", category: "Playroom", tag: "Room for imagination", image: "https://images.pexels.com/photos/8923989/pexels-photo-8923989.jpeg?auto=compress&cs=tinysrgb&w=900" },
 ];
 const categories = ["All", "Beds", "Study", "Storage", "Playroom"];
 
@@ -55,7 +56,7 @@ export default function Home() {
         <div className="hero-note"><span className="paw">✦</span> Made for childhood. Chosen by you.</div>
       </div>
       <div className="hero-art">
-        <div className="hero-photo"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=90" alt="Warm, thoughtfully styled children's bedroom"/></div>
+        <div className="hero-photo"><img src="https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Warm, thoughtfully styled children's bedroom"/></div>
         <div className="floating-note"><span className="note-icon">♡</span><span><b>Room to grow</b><small>Beautiful beginnings start here</small></span></div>
         <div className="sun-shape"></div>
       </div>
@@ -77,11 +78,12 @@ export default function Home() {
         <div className="product-info"><div><span className="product-category">{p.category}</span><h3>{p.name}</h3><p>{p.tag}</p></div><a href="#enquiry" aria-label={`Enquire about ${p.name}`} className="round-arrow"><ArrowRight size={18}/></a></div>
         <div className="price-note">Ask us for options & pricing</div>
       </article>)}</div>
+      <p className="image-disclaimer">Photos are for design inspiration only and may not show the exact furniture we make. Ask us about available designs and custom options.</p>
       <div className="center-cta"><a href="#enquiry" className="button button-outline">Have something special in mind? <ArrowRight size={17}/></a></div>
     </section>
 
     <section className="feature" id="about">
-      <div className="feature-image"><img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=1100&q=85" alt="Cosy and colourful home interior"/></div>
+      <div className="feature-image"><img src="https://images.pexels.com/photos/8535156/pexels-photo-8535156.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Cosy and colourful home interior"/></div>
       <div className="feature-copy"><div className="eyebrow">A WORLD BUILT AROUND THEM</div><h2>Childhood is a big adventure. <span>Give it room.</span></h2><p>We believe children's spaces should be joyful, practical and full of possibility. Kids Furniture Kenya is here to help you create a room your little one will love growing up in.</p><a className="text-link" href="#enquiry">Let's create something lovely <ArrowRight size={17}/></a><div className="feature-stamp">MADE WITH<br/>LITTLE ONES<br/>IN MIND <span>✳</span></div></div>
     </section>
 
