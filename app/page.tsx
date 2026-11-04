@@ -90,9 +90,9 @@ export default function Home() {
     </section>
 
     <section className="enquiry section" id="enquiry">
-      <div className="enquiry-copy"><div className="eyebrow">LET'S MAKE THEIR SPACE SPECIAL</div><h2>Have a little idea? <span>Let&apos;s build on it.</span></h2><p>Looking for a particular size, colour or design? Tell us what you have in mind and start a conversation with our team.</p><div className="enquiry-promise"><span>♡</span> Your idea, your space, let's talk.</div></div>
+      <div className="enquiry-copy"><div className="eyebrow">LET&apos;S MAKE THEIR SPACE SPECIAL</div><h2>Have a little idea? <span>Let&apos;s build on it.</span></h2><p>Looking for a particular size, colour or design? Tell us what you have in mind and start a conversation with our team.</p><div className="enquiry-promise"><span>♡</span> Your idea, your space, let&apos;s talk.</div></div>
       <form className="enquiry-form" onSubmit={e => { e.preventDefault(); sendEnquiry(new FormData(e.currentTarget)); }}>
-        <div className="form-title">Tell us what you're dreaming of <span>✳</span></div>
+        <div className="form-title">Tell us what you&apos;re dreaming of <span>✳</span></div>
         <label>Your name<input name="name" placeholder="e.g. Jane" required/></label>
         <label>Phone number<input name="phone" type="tel" placeholder="e.g. 07XX XXX XXX" required/></label>
         <label>What are you interested in?<select name="interest" value={interest} onChange={e => setInterest(e.target.value)} required><option value="" disabled>Choose a furniture type</option>{enquiryOptions.map(option => <option key={option}>{option}</option>)}</select></label>
