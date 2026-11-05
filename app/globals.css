@@ -343,3 +343,36 @@
  .store-bottom-nav button small{font-size:9px!important}
  .store-footer{padding-bottom:85px!important}
 }
+
+
+/* Floating search, revised header order, promotional rail and footer benefits */
+.store-global-search{position:sticky;top:0;z-index:55;margin-top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);box-shadow:0 5px 18px #0000000a}
+.store-menu{order:5}
+.store-me-top{order:4}
+.store-actions{order:3;flex-direction:row-reverse}
+.store-footer{flex-wrap:wrap}
+.store-footer-benefits{display:flex;align-items:center;justify-content:center;gap:22px;flex:1;flex-wrap:wrap}
+.store-footer-benefits span{display:flex;align-items:center;gap:7px;font-size:10px;color:#fff}
+.store-footer-benefits svg{width:17px;height:17px;color:var(--store-orange)}
+.store-promo-strip{overflow:hidden;background:var(--store-blue);color:#fff;padding:14px 0;margin:0}
+.store-promo-track{display:flex;width:max-content;animation:store-promo-scroll 28s linear infinite}
+.store-promo-track article{width:min(76vw,430px);padding:4px 34px;border-right:1px solid #ffffff55;display:flex;flex-direction:column;gap:5px}
+.store-promo-track small{font-size:8px;letter-spacing:.16em;font-weight:900;color:#ffe0a0}
+.store-promo-track b{font-size:14px}
+.store-promo-track span{font-size:10px;color:#eaf4ff}
+.store-promo-strip:hover .store-promo-track{animation-play-state:paused}
+@keyframes store-promo-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.store-pagination{display:flex;align-items:center;justify-content:center;gap:7px;margin:30px auto 10px}
+.store-pagination button{min-width:36px;height:36px;border:1px solid var(--store-line);background:#fff;color:var(--store-ink);font-size:11px;cursor:pointer;padding:0 11px}
+.store-pagination button.active{background:var(--store-blue);border-color:var(--store-blue);color:#fff}
+.store-pagination button:disabled{opacity:.35;cursor:not-allowed}
+.store-category-products-heading{margin-top:40px}
+@media(max-width:640px){
+ .store-global-search{top:0;width:100%;margin:0 0 16px;border-radius:0 0 9px 9px}
+ .store-footer-benefits{order:2;justify-content:flex-start;gap:12px;width:100%}
+ .store-footer-benefits span{font-size:9px}
+ .store-footer p{order:3}
+ .store-footer>span{order:4}
+ .store-promo-track article{width:82vw;padding:4px 22px}
+ .store-promo-track b{font-size:12px}
+}
