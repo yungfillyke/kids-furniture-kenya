@@ -376,3 +376,39 @@
  .store-promo-track article{width:82vw;padding:4px 22px}
  .store-promo-track b{font-size:12px}
 }
+
+
+/* Floating search and seller-ad carousel refinements */
+.store-header{position:sticky;top:0;z-index:70;background:#fff;column-gap:0}
+.store-actions{margin-left:22px!important;gap:14px!important}
+.store-menu{margin-left:0!important}
+.store-me-top{margin:0!important}
+.store-global-search{position:sticky;top:78px;z-index:65;width:min(68vw,680px);height:46px;margin:12px auto 22px;border-radius:28px;padding:0 17px;box-shadow:0 8px 24px #00000012}
+.store-promo-strip{background:#f1f0ed;padding:14px 0;margin:24px 0 32px}
+.store-promo-track{gap:14px;animation:store-promo-scroll 32s linear infinite}
+.store-promo-track article{width:min(78vw,540px);height:170px;flex:none;justify-content:flex-end;padding:20px 25px;border:0;border-radius:15px;background-size:cover;background-position:center;box-shadow:0 5px 18px #00000018}
+.store-promo-track small{color:#ffe09b}
+.store-promo-track b{font-size:19px;max-width:320px}
+.store-promo-track span{font-size:11px;color:#fff}
+.store-promo-strip:hover .store-promo-track{animation-play-state:paused}
+.store-hero{min-height:350px}
+.store-pagination{scroll-margin-top:100px}
+@media(max-width:640px){
+ .store-header{height:65px;flex-wrap:nowrap;gap:0}
+ .store-logo{margin-right:auto}
+ .store-actions{margin-left:18px!important;gap:12px!important}
+ .store-menu{margin:0!important}
+ .store-me-top{margin:0!important;width:32px;height:32px}
+ .store-global-search{top:65px;width:72vw;max-width:390px;height:42px;margin:9px auto 16px;border-radius:28px;padding:0 13px}
+ .store-global-search button{display:none}
+ .store-promo-strip{padding:10px 0;margin:18px 0 25px}
+ .store-promo-track{gap:10px;animation-duration:30s}
+ .store-promo-track article{width:82vw;height:145px;padding:15px 18px;border-radius:12px}
+ .store-promo-track b{font-size:16px}
+ .store-promo-track span{font-size:10px}
+ .store-hero{min-height:273px;padding:20px 7% 25px;background-size:100% 100%,100% 182px}
+ .store-hero-copy{margin-top:108px}
+ .store-hero h1{font-size:clamp(36px,9vw,44px);margin-bottom:10px}
+ .store-hero-copy>p{font-size:10px;line-height:1.5}
+ .store-hero .store-primary{padding:10px 14px;font-size:10px}
+}
