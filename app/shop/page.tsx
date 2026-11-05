@@ -27,14 +27,17 @@ export default function ShopPage(){
  const [cart,setCart]=useState<number[]>([]);
  const [menu,setMenu]=useState(false);
  const [filters,setFilters]=useState(false);
- const [sort,setSort]=useState("Featured");\n const [navVisible,setNavVisible]=useState(true);\n useEffect(()=>{let last=window.scrollY;const onScroll=()=>{const y=window.scrollY;setNavVisible(y<80||y<last-5);last=y;};window.addEventListener("scroll",onScroll,{passive:true});return()=>window.removeEventListener("scroll",onScroll);},[]);
+ const [sort,setSort]=useState("Featured");
+ const [navVisible,setNavVisible]=useState(true);
+ useEffect(()=>{let last=window.scrollY;const onScroll=()=>{const y=window.scrollY;setNavVisible(y<80||y<last-5);last=y;};window.addEventListener("scroll",onScroll,{passive:true});return()=>window.removeEventListener("scroll",onScroll);},[]);
  const list=useMemo(()=>{let a=items.filter(x=>(category==="All"||x.category===category)&&(!query||[x.name,x.category,x.description].join(" ").toLowerCase().includes(query.toLowerCase())));if(sort==="A–Z")a=[...a].sort((x,y)=>x.name.localeCompare(y.name));return a},[category,query,sort]);
  const chosen=items.filter(x=>cart.includes(x.id));
  const goShop=(c:Category|"All"="All")=>{setCategory(c);setQuery("");setPage("shop");setMenu(false);window.scrollTo({top:0,behavior:"smooth"})};
  const toggle=(id:number,arr:number[],setter:(v:number[])=>void)=>setter(arr.includes(id)?arr.filter(x=>x!==id):[...arr,id]);
  const detail=(x:Item)=>{setActive(x);setPage("detail");window.scrollTo({top:0,behavior:"smooth"})};
  const cards=(arr:Item[])=> <div className="store-grid">{arr.map(x=><article className="store-card" key={x.id}><div className="store-card-photo"><button className="store-photo-open" onClick={()=>detail(x)}><img src={x.image} alt={x.name}/></button><span className="store-tag">{x.tag}</span><button className={"store-heart "+(saved.includes(x.id)?"is-saved":"")} onClick={()=>toggle(x.id,saved,setSaved)} aria-label="Save item"><Heart size={17} fill={saved.includes(x.id)?"currentColor":"none"}/></button></div><div className="store-card-info"><small>{x.category}</small><button className="store-card-name" onClick={()=>detail(x)}>{x.name}</button><p>Ask for sizes, finishes & a quote</p><button className="store-add" onClick={()=>toggle(x.id,cart,setCart)}>{cart.includes(x.id)?"Added to cart":"Add to cart"} <Plus size={14}/></button></div></article>)}</div>;
- return <main className="storefront">
+ return <>
+ <main className="storefront">
   <div className="store-strip">Thoughtful furniture for little people</div>
   <header className="store-header"><a href="/" className="store-logo"><Brand/></a><nav className={menu?"store-nav nav-open":"store-nav"}><button onClick={()=>{setPage("home");setMenu(false)}}>Home</button><button onClick={()=>goShop()}>Shop all</button>{categories.map(c=><button key={c.name} onClick={()=>goShop(c.name)}>{c.name}</button>)}</nav><div className="store-actions"><button aria-label="Cart" onClick={()=>setPage("cart")}><ShoppingBag/><span>{cart.length}</span></button><button aria-label="Wishlist" onClick={()=>setPage("saved")}><Heart/><span>{saved.length}</span></button></div><button className="store-menu" onClick={()=>setMenu(!menu)} aria-label="Toggle navigation">{menu?<X/>:<Menu/>}</button><button className="store-me-top" onClick={()=>setPage("profile")} aria-label="Me"><UserRound/></button></header>
   <div className="store-global-search"><SearchIcon/><input value={query} onChange={e=>{setQuery(e.target.value);if(e.target.value)setPage("shop");}} onKeyDown={e=>{if(e.key==="Enter")goShop();}} placeholder="Search beds, desks, wardrobes..."/><button onClick={()=>goShop()}>Search</button></div>
@@ -55,5 +58,6 @@ export default function ShopPage(){
   {page==="profile"&&<section className="store-page"><div className="store-breadcrumb"><button onClick={()=>setPage("home")}><ArrowLeft size={14}/> Home</button><ChevronRight size={13}/> Me</div><div className="store-heading"><div><small>KIDS FURNITURE KENYA</small><h2>Me</h2><p>Welcome. Explore our designs or get in touch with our team.</p></div></div><div className="store-profile-panel"><h3>How can we help?</h3><p>Ask about furniture designs, available options, custom requests and delivery.</p><WhatsApp selected={[]}/><button className="store-profile-link" onClick={()=>setPage("cart")}>View your cart <ArrowRight size={15}/></button></div></section>}
   <nav className={"store-bottom-nav "+(navVisible?"":"nav-hidden")} aria-label="Main navigation"><button className={page==="home"?"active":""} onClick={()=>{setPage("home");window.scrollTo({top:0,behavior:"smooth"})}}><Home/><small>Home</small></button><button className={page==="categories"?"active":""} onClick={()=>{setPage("categories");window.scrollTo({top:0,behavior:"smooth"})}}><LayoutGrid/><small>Categories</small></button><button className={page==="cart"?"active":""} onClick={()=>{setPage("cart");window.scrollTo({top:0,behavior:"smooth"})}}><span className="store-cart-nav-icon"><ShoppingBag/>{cart.length>0&&<i>{cart.length}</i>}</span><small>Cart</small></button><button className={page==="profile"?"active":""} onClick={()=>{setPage("profile");window.scrollTo({top:0,behavior:"smooth"})}}><UserRound/><small>Me</small></button></nav>
  </main>
-}<footer className="store-footer"><Brand/><p>Thoughtful furniture for little people.</p><span>© {new Date().getFullYear()} Kids Furniture Kenya</span></footer>
-
+ <footer className="store-footer"><Brand/><p>Thoughtful furniture for little people.</p><span>© {new Date().getFullYear()} Kids Furniture Kenya</span></footer>
+ </>;
+}
