@@ -76,7 +76,7 @@ export default function ShopPage(){
  const [navVisible,setNavVisible]=useState(true);
  const [activeAd,setActiveAd]=useState(0);
  const adViewport=useRef<HTMLDivElement>(null);
- const ads=[
+ const ads:{title:string;label:string;image:string;description:string;category:Category}[]=[
  {title:"Premium bunk bed",label:"KIDS FURNITURE KENYA • 38% OFF",image:"https://boori.com.au/cdn/shop/files/Shopify-Product-Image_2048-x-2048_HorizonMaxiBunkBed_BN_01.jpg?v=1690368534&width=600",description:"Was KSh 120,000  •  Now KSh 74,400",category:"Beds"},
  {title:"Study desk and chair set",label:"LIMITED-TIME DEAL",image:"https://modernkraftz.com/cdn/shop/products/Sr_blue_002_1200x1200.jpg?v=1671985225",description:"A dedicated study space at a special promotional price",category:"Study"},
  {title:"A wardrobe made for their room",label:"SPECIAL PRICE",image:"https://cdn.shopify.com/s/files/1/0564/3452/4316/files/white-selby-wardrobe-front-lifestyle-image.webp?v=1780568939",description:"Selected storage pieces now on offer",category:"Storage"},
