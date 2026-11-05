@@ -70,7 +70,7 @@ export default function ShopPage() {
       <div className="shop-layout">
         <aside className="shop-sidebar">
           <div className="sidebar-title"><SlidersHorizontal size={17}/> Categories</div>
-          {categoryOptions.map(option => <button key={option} onClick={() => setCategory(option)} className={category === option ? "shop-category active" : "shop-category"}>{option}<span>{option === "All furniture" ? collections.length : collections.filter(item => item.category === option).length}</span></button>)}
+          {categoryOptions.map(option => <button key={option} onClick={() => { setCategory(option); setSelectedCollection(""); }} className={category === option ? "shop-category active" : "shop-category"}>{option}<span>{option === "All furniture" ? collections.length : collections.filter(item => item.category === option).length}</span></button>)}
           <div className="sidebar-help"><MessageCircle size={20}/><b>Need something custom?</b><p>Tell us what you have in mind. Our team can help you explore the options.</p><a href="/#enquiry">Make an enquiry <ArrowRight size={14}/></a></div>
         </aside>
 
