@@ -57,7 +57,7 @@ export default function ShopPage() {
       <div className="shop-crumb"><a href="/"><ArrowLeft size={14}/> Back to home</a><span>/</span><span>Furniture collections</span></div>
       <div className="shop-hero-content">
         <div><div className="eyebrow">THE KIDS FURNITURE KENYA COLLECTION</div><h1>Find a little <span>inspiration.</span></h1><p>Explore ideas for their bedroom, study corner and play space. Found something you like? Talk to us about designs and custom options.</p></div>
-        <div className="shop-hero-note"><span>✳</span><b>Made around your little one's world</b><small>Browse ideas, then make them yours.</small></div>
+        <div className="shop-hero-note"><span>✳</span><b>Made around your little one&apos;s world</b><small>Browse ideas, then make them yours.</small></div>
       </div>
     </section>
 
@@ -85,7 +85,7 @@ export default function ShopPage() {
       </div>
     </section>
 
-    <section className="shop-bottom-cta"><div><div className="eyebrow">HAVE A DESIGN IN MIND?</div><h2>Let's create a space <span>they'll love.</span></h2><p>Share your idea, measurements or a reference photo and start a conversation with us.</p></div><a className="button button-blue" href="/#enquiry">Start an enquiry <ArrowRight size={18}/></a></section>
+    <section className="shop-bottom-cta"><div><div className="eyebrow">HAVE A DESIGN IN MIND?</div><h2>Let&apos;s create a space <span>they&apos;ll love.</span></h2><p>Share your idea, measurements or a reference photo and start a conversation with us.</p></div><a className="button button-blue" href="/#enquiry">Start an enquiry <ArrowRight size={18}/></a></section>
     <footer className="footer"><div className="footer-top"><Brand/><p>Little spaces. Big dreams.<br/>Furniture for their little world.</p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Kids Furniture Kenya</span><span>Made with care in Kenya <b>♥</b></span></div></footer>
   </main>;
 }
