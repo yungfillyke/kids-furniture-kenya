@@ -110,7 +110,7 @@ export default function ShopPage() {
           <h1>Make room for<br/><span>little</span> wonders.</h1>
           <p>Thoughtful furniture ideas for growing minds, cosy nights and everyday adventures. Find inspiration for every little corner.</p>
           <button className="market-primary-button" onClick={() => openBrowse("All")}>Explore furniture <ArrowRight size={17}/></button>
-          <div className="market-home-assurance"><ShieldCheck size={17}/> Personal guidance for your little one's space</div>
+          <div className="market-home-assurance"><ShieldCheck size={17}/> Personal guidance for your little one&apos;s space</div>
         </div>
         <div className="market-home-visual">
           <img src="https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=1300" alt="Children's bedroom furniture inspiration"/>
@@ -149,12 +149,12 @@ export default function ShopPage() {
         <div><Truck/><span><b>Kenya, made personal</b><small>Speak directly with our team</small></span></div>
         <div><RotateCcw/><span><b>Made around your needs</b><small>Ask about custom options</small></span></div>
       </section>
-      <section className="market-custom-banner"><div><span className="market-eyebrow">HAVE SOMETHING SPECIAL IN MIND?</span><h2>Let's make their space <em>their own.</em></h2><p>Share your measurements, ideas or a reference photo with our team.</p></div><a href="/#enquiry" className="market-primary-button">Request a custom piece <ArrowRight size={17}/></a></section>
+      <section className="market-custom-banner"><div><span className="market-eyebrow">HAVE SOMETHING SPECIAL IN MIND?</span><h2>Let&apos;s make their space <em>their own.</em></h2><p>Share your measurements, ideas or a reference photo with our team.</p></div><a href="/#enquiry" className="market-primary-button">Request a custom piece <ArrowRight size={17}/></a></section>
     </>}
 
     {view === "browse" && <section className="market-browse-page">
       <div className="market-breadcrumb"><button onClick={() => setView("home")}><ArrowLeft size={15}/> Home</button><ChevronRight size={13}/> Furniture</div>
-      <div className="market-browse-heading"><div><span className="market-eyebrow">THE KIDS FURNITURE KENYA COLLECTION</span><h1>{category === "All" ? "Find their little favourite." : category + " for little spaces."}</h1><p>Explore design inspiration and tell us what you'd like made for your space.</p></div><div className="market-browse-count">{filtered.length}<small>ideas to explore</small></div></div>
+      <div className="market-browse-heading"><div><span className="market-eyebrow">THE KIDS FURNITURE KENYA COLLECTION</span><h1>{category === "All" ? "Find their little favourite." : category + " for little spaces."}</h1><p>Explore design inspiration and tell us what you&apos;d like made for your space.</p></div><div className="market-browse-count">{filtered.length}<small>ideas to explore</small></div></div>
       <div className="market-browse-tools">
         <label className="market-search-box"><Search size={18}/><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search furniture inspiration..."/></label>
         <button className={filterOpen ? "market-tool-button tool-active" : "market-tool-button"} onClick={() => setFilterOpen(!filterOpen)}><SlidersHorizontal size={16}/> Filter</button>
