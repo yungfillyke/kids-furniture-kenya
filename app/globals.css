@@ -287,3 +287,19 @@
  }
  .store-hero-copy{margin-top:155px}
 }
+
+
+/* Five-item storefront navigation: Home, Categories, Cart, Search, Profile */
+.store-bottom-nav{width:88px;padding:14px 7px;gap:7px}
+.store-bottom-nav button{min-height:57px;gap:4px}
+.store-bottom-nav button small{font-size:9px}
+.store-cart-nav-icon{position:relative;display:grid;place-items:center}
+.store-cart-nav-icon i{position:absolute;right:-9px;top:-7px;min-width:15px;height:15px;padding:0 3px;border-radius:10px;background:var(--store-orange);color:#fff;font-size:9px;font-style:normal;line-height:15px}
+.store-category-grid{margin-top:18px}
+@media(max-width:640px){
+ .store-bottom-nav{width:min(94vw,480px);padding:8px 9px max(8px,env(safe-area-inset-bottom));grid-template-columns:repeat(5,minmax(0,1fr));gap:0}
+ .store-bottom-nav button{min-height:53px;gap:3px;font-size:17px}
+ .store-bottom-nav button small{font-size:8px}
+ .store-bottom-nav button svg{width:18px;height:18px}
+ .store-cart-nav-icon i{right:-7px;top:-6px}
+}
