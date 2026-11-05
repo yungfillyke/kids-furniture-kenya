@@ -73,11 +73,11 @@ export default function Home() {
     </section>
 
     <section className="collections section" id="collections">
-      <div className="section-heading"><div><div className="eyebrow">A LITTLE SOMETHING FOR EVERY ROOM</div><h2>Find their <span>happy place.</span></h2></div><p>From bedtime to playtime and everything in between, explore furniture for every little corner.</p></div>
+      <div className="section-heading"><div><div className="eyebrow">A LITTLE SOMETHING FOR EVERY ROOM</div><h2>Explore our <span>collections.</span></h2></div><p>From bedtime to playtime and everything in between, explore furniture for every little corner.</p></div>
       <div className="filters" role="group" aria-label="Filter furniture categories">{categories.map(c => <button key={c} className={active === c ? "filter active" : "filter"} aria-pressed={active === c} onClick={() => setActive(c)}>{c}</button>)}</div>
       <div className="product-grid">{visible.map((p, i) => <article className="product-card" key={p.name}>
-        <a href="#enquiry" className="product-image" onClick={() => setInterest(p.name.includes("Bunk") ? "Bunk bed" : p.name.includes("Bed") ? "Kids bed" : p.name.includes("Desk") ? "Study desk or chair" : p.name.includes("Wardrobe") ? "Wardrobe" : p.category === "Storage" ? "Toy or clothes storage" : "Playroom furniture")}><img src={p.image} alt={p.name + " inspiration"} loading="lazy" decoding="async"/><span className="product-number">0{i+1}</span><span className="image-arrow"><ArrowRight size={18}/></span></a>
-        <div className="product-info"><div><span className="product-category">{p.category}</span><h3>{p.name}</h3><p>{p.tag}</p></div><a href="#enquiry" aria-label={`Enquire about ${p.name}`} className="round-arrow" onClick={() => setInterest(p.name.includes("Bunk") ? "Bunk bed" : p.name.includes("Bed") ? "Kids bed" : p.name.includes("Desk") ? "Study desk or chair" : p.name.includes("Wardrobe") ? "Wardrobe" : p.category === "Storage" ? "Toy or clothes storage" : "Playroom furniture")}><ArrowRight size={18}/></a></div>
+        <a href={`/shop?category=${encodeURIComponent(p.category)}&collection=${encodeURIComponent(p.name)}`} className="product-image"><img src={p.image} alt={p.name + " inspiration"} loading="lazy" decoding="async"/><span className="image-arrow"><ArrowRight size={18}/></span></a>
+        <div className="product-info"><div><span className="product-category">{p.category}</span><h3>{p.name}</h3><p>{p.tag}</p></div><a href={`/shop?category=${encodeURIComponent(p.category)}&collection=${encodeURIComponent(p.name)}`} aria-label={`Shop ${p.name}`} className="round-arrow"><ArrowRight size={18}/></a></div>
         <div className="price-note">Ask us for options & pricing</div>
       </article>)}</div>
       <p className="image-disclaimer">Photos are for design inspiration only and may not show the exact furniture we make. Ask us about available designs and custom options.</p>
@@ -86,7 +86,7 @@ export default function Home() {
 
     <section className="feature" id="about">
       <div className="feature-image"><img src="https://images.pexels.com/photos/8535156/pexels-photo-8535156.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Cosy and colourful home interior"/></div>
-      <div className="feature-copy"><div className="eyebrow">A WORLD BUILT AROUND THEM</div><h2>Childhood is a big adventure. <span>Give it room.</span></h2><p>We believe children&apos;s spaces should be joyful, practical and full of possibility. Kids Furniture Kenya is here to help you create a room your little one will love growing up in.</p><a className="text-link" href="#enquiry">Let&apos;s create something lovely <ArrowRight size={17}/></a><div className="feature-stamp">MADE WITH<br/>LITTLE ONES<br/>IN MIND <span>✳</span></div></div>
+      <div className="feature-copy"><div className="eyebrow">A WORLD BUILT AROUND THEM</div><h2>Childhood is a big adventure. <span>Give it room.</span></h2><p>We believe children&apos;s spaces should be joyful, practical and full of possibility. Kids Furniture Kenya is here to help you create a room your little one will love growing up in.</p><div className="feature-stamp">MADE WITH<br/>LITTLE ONES<br/>IN MIND <span>✳</span></div></div>
     </section>
 
     <section className="enquiry section" id="enquiry">
@@ -103,6 +103,6 @@ export default function Home() {
       </form>
     </section>
 
-    <footer className="footer"><div className="footer-top"><Brand/><p>Little spaces. Big dreams.<br/>Furniture for their little world.</p><a href="#enquiry" className="footer-contact">Start an enquiry <ArrowRight size={17}/></a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Kids Furniture Kenya</span><span>Made with care in Kenya <b>♥</b></span></div></footer>
+    <footer className="footer"><div className="footer-top"><Brand/><p>Little spaces. Big dreams.<br/>Furniture for their little world.</p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Kids Furniture Kenya</span><span>Made with care in Kenya <b>♥</b></span></div></footer>
   </main>;
 }
