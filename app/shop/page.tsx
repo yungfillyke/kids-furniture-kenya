@@ -20,6 +20,7 @@ function Brand() {
 
 export default function ShopPage() {
   const [category, setCategory] = useState("All furniture");
+  const [selectedCollection, setSelectedCollection] = useState("");
   const [search, setSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -27,16 +28,18 @@ export default function ShopPage() {
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("category");
     if (requested && categoryOptions.includes(requested)) setCategory(requested);
+    setSelectedCollection(params.get("collection") || "");
   }, []);
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
     return collections.filter((item) => {
       const categoryMatch = category === "All furniture" || item.category === category;
+      const collectionMatch = !selectedCollection || item.name === selectedCollection;
       const searchMatch = !term || `${item.name} ${item.category} ${item.description}`.toLowerCase().includes(term);
-      return categoryMatch && searchMatch;
+      return categoryMatch && collectionMatch && searchMatch;
     });
-  }, [category, search]);
+  }, [category, selectedCollection, search]);
 
   return <main className="shop-page">
     <div className="announcement">Thoughtful furniture for little people <span>♡</span> Proudly Kenyan</div>
@@ -60,7 +63,7 @@ export default function ShopPage() {
 
     <section className="shop-content">
       <div className="shop-toolbar">
-        <div><div className="eyebrow">BROWSE THE RANGE</div><h2>Explore collections</h2><p>{visible.length} {visible.length === 1 ? "collection" : "collections"} to explore</p></div>
+        <div><div className="eyebrow">BROWSE THE RANGE</div><h2>{selectedCollection || "Explore collections"}</h2><p>{visible.length} {visible.length === 1 ? "collection" : "collections"} to explore</p></div>
         <label className="shop-search"><Search size={18}/><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search beds, desks, storage..." aria-label="Search collections"/></label>
       </div>
 
@@ -76,7 +79,7 @@ export default function ShopPage() {
           {visible.length ? <div className="shop-grid">{visible.map(item => <article className="shop-card" key={item.name}>
             <a className="shop-card-image" href="/#enquiry" aria-label={`Enquire about ${item.name}`}><img src={item.image} alt={`${item.name} inspiration photo`} loading="lazy" decoding="async"/><span className="inspiration-tag">Design inspiration</span><span className="shop-card-arrow"><ArrowRight size={18}/></span></a>
             <div className="shop-card-body"><span className="product-category">{item.category}</span><h3>{item.name}</h3><p>{item.description}</p><div className="shop-card-bottom"><span>Ask about designs & pricing</span><a href="/#enquiry" aria-label={`Enquire about ${item.name}`}><MessageCircle size={16}/> Enquire</a></div></div>
-          </article>)}</div> : <div className="shop-empty"><Search size={28}/><h3>No matching collections</h3><p>Try another search or choose a different category.</p><button onClick={() => {setSearch("");setCategory("All furniture");}}>Clear filters</button></div>}
+          </article>)}</div> : <div className="shop-empty"><Search size={28}/><h3>No matching collections</h3><p>Try another search or choose a different category.</p><button onClick={() => {setSearch("");setCategory("All furniture");setSelectedCollection("");}}>Clear filters</button></div>}
           <p className="shop-disclaimer">These photos are examples for inspiration only. They are not confirmed products or current stock from Kids Furniture Kenya. Product designs, materials, sizes, availability and prices will be confirmed directly with the team.</p>
         </div>
       </div>
