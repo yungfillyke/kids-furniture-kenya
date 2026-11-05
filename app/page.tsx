@@ -75,7 +75,7 @@ export default function Home() {
     <section className="collections section" id="collections">
       <div className="section-heading"><div><div className="eyebrow">A LITTLE SOMETHING FOR EVERY ROOM</div><h2>Explore our <span>collections.</span></h2></div><p>From bedtime to playtime and everything in between, explore furniture for every little corner.</p></div>
       <div className="filters" role="group" aria-label="Filter furniture categories">{categories.map(c => <button key={c} className={active === c ? "filter active" : "filter"} aria-pressed={active === c} onClick={() => setActive(c)}>{c}</button>)}</div>
-      <div className="product-grid">{visible.map((p, i) => <article className="product-card" key={p.name}>
+      <div className="product-grid">{visible.map((p) => <article className="product-card" key={p.name}>
         <a href={`/shop?category=${encodeURIComponent(p.category)}&collection=${encodeURIComponent(p.name)}`} className="product-image"><img src={p.image} alt={p.name + " inspiration"} loading="lazy" decoding="async"/><span className="image-arrow"><ArrowRight size={18}/></span></a>
         <div className="product-info"><div><span className="product-category">{p.category}</span><h3>{p.name}</h3><p>{p.tag}</p></div><a href={`/shop?category=${encodeURIComponent(p.category)}&collection=${encodeURIComponent(p.name)}`} aria-label={`Shop ${p.name}`} className="round-arrow"><ArrowRight size={18}/></a></div>
         <div className="price-note">Ask us for options & pricing</div>
