@@ -475,3 +475,13 @@
  .store-pagination{gap:5px;margin:22px auto 8px}
  .store-pagination button{min-width:29px;height:30px;padding:0 7px;font-size:10px}
 }
+
+/* Carousel: keep the timer in control; native horizontal swipe remains available */
+.store-ad-viewport{display:flex!important;gap:16px!important;padding:8px 9%!important;overflow-x:auto!important;overflow-y:hidden!important;scroll-snap-type:x mandatory!important;scroll-behavior:smooth!important;touch-action:pan-x!important;overscroll-behavior-x:contain!important;}
+.store-ad-slide{flex:0 0 82%!important;scroll-snap-align:center!important;scroll-snap-stop:always!important;border-radius:18px!important;min-height:280px!important;}
+.store-ad-viewport::-webkit-scrollbar{display:none!important}
+.store-ad-viewport{scrollbar-width:none!important}
+.store-room-banners{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important}
+.store-room-banners>button{min-width:0!important;width:100%!important}
+.store-room-banners img{width:100%;height:100%;object-fit:cover}
+@media(max-width:760px){.store-ad-viewport{gap:10px!important;padding:7px 8%!important}.store-ad-slide{flex-basis:84%!important;min-height:195px!important;border-radius:14px!important}.store-room-banners{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}}
