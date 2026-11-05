@@ -1,188 +1,55 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import {
-  ArrowLeft, ArrowRight, Search, SlidersHorizontal, Heart, ShoppingBag,
-  Home, Grid2X2, UserRound, Menu, X, ChevronRight, Check, MessageCircle,
-  Sparkles, ShieldCheck, Truck, RotateCcw, Star, Plus, Minus
-} from "lucide-react";
+import { useMemo, useState } from "react";
+import { ArrowRight, Search, Heart, ShoppingBag, Menu, X, ChevronRight, SlidersHorizontal, MessageCircle, ShieldCheck, Truck, Sparkles, Plus, Minus, Trash2, ArrowLeft } from "lucide-react";
 
 type Category = "Beds" | "Study" | "Storage" | "Playroom";
-type Inspiration = {
-  id: number; name: string; category: Category; description: string;
-  image: string; note: string;
-};
-
-const inspirations: Inspiration[] = [
-  { id: 1, name: "Dreamy Kids Bed", category: "Beds", description: "A cosy bedroom idea with room for bedtime stories and growing dreams.", image: "https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=1000", note: "Bedroom inspiration" },
-  { id: 2, name: "Space-Saving Bunk Bed", category: "Beds", description: "A clever way to think about shared rooms and making more room to play.", image: "https://images.pexels.com/photos/5008397/pexels-photo-5008397.jpeg?auto=compress&cs=tinysrgb&w=1000", note: "Bedroom inspiration" },
-  { id: 3, name: "Little Learner Desk", category: "Study", description: "A dedicated corner for homework, drawing and big ideas.", image: "https://images.pexels.com/photos/9328035/pexels-photo-9328035.jpeg?auto=compress&cs=tinysrgb&w=1000", note: "Study-space inspiration" },
-  { id: 4, name: "Toy & Clothes Storage", category: "Storage", description: "Ideas for keeping everyday essentials organised and close at hand.", image: "https://images.pexels.com/photos/7045947/pexels-photo-7045947.jpeg?auto=compress&cs=tinysrgb&w=1000", note: "Storage inspiration" },
-  { id: 5, name: "Growing-Up Wardrobe", category: "Storage", description: "A practical storage idea for a child's changing needs.", image: "https://images.pexels.com/photos/7587810/pexels-photo-7587810.jpeg?auto=compress&cs=tinysrgb&w=1000", note: "Storage inspiration" },
-  { id: 6, name: "Playroom Chair", category: "Playroom", description: "A playful seating idea for reading, creating and relaxing.", image: "https://images.pexels.com/photos/8923989/pexels-photo-8923989.jpeg?auto=compress&cs=tinysrgb&w=1000", note: "Playroom inspiration" },
+type Item = { id:number; name:string; category:Category; image:string; description:string; tag:string };
+const items:Item[] = [
+ {id:1,name:"Dreamy Kids Bed",category:"Beds",image:"https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=1000",description:"A cosy bedroom idea with room for bedtime stories and growing dreams.",tag:"BEDROOM"},
+ {id:2,name:"Space-Saving Bunk Bed",category:"Beds",image:"https://images.pexels.com/photos/5008397/pexels-photo-5008397.jpeg?auto=compress&cs=tinysrgb&w=1000",description:"A clever shared-room idea that leaves more room to play.",tag:"BEDROOM"},
+ {id:3,name:"Little Learner Desk",category:"Study",image:"https://images.pexels.com/photos/9328035/pexels-photo-9328035.jpeg?auto=compress&cs=tinysrgb&w=1000",description:"A dedicated corner for homework, drawing and big ideas.",tag:"STUDY"},
+ {id:4,name:"Toy & Clothes Storage",category:"Storage",image:"https://images.pexels.com/photos/7045947/pexels-photo-7045947.jpeg?auto=compress&cs=tinysrgb&w=1000",description:"Ideas for keeping everyday essentials organised and close at hand.",tag:"STORAGE"},
+ {id:5,name:"Growing-Up Wardrobe",category:"Storage",image:"https://images.pexels.com/photos/7587810/pexels-photo-7587810.jpeg?auto=compress&cs=tinysrgb&w=1000",description:"A practical storage idea for a child's changing needs.",tag:"STORAGE"},
+ {id:6,name:"Playroom Chair",category:"Playroom",image:"https://images.pexels.com/photos/8923989/pexels-photo-8923989.jpeg?auto=compress&cs=tinysrgb&w=1000",description:"A playful place to read, create and relax.",tag:"PLAYROOM"}
 ];
-
-const categories: { name: Category | "All"; caption: string; image: string }[] = [
-  { name: "All", caption: "Everything", image: "https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=300" },
-  { name: "Beds", caption: "Sleep & dream", image: "https://images.pexels.com/photos/5008397/pexels-photo-5008397.jpeg?auto=compress&cs=tinysrgb&w=300" },
-  { name: "Study", caption: "Learn & create", image: "https://images.pexels.com/photos/9328035/pexels-photo-9328035.jpeg?auto=compress&cs=tinysrgb&w=300" },
-  { name: "Storage", caption: "Tidy little spaces", image: "https://images.pexels.com/photos/7045947/pexels-photo-7045947.jpeg?auto=compress&cs=tinysrgb&w=300" },
-  { name: "Playroom", caption: "Room to play", image: "https://images.pexels.com/photos/8923989/pexels-photo-8923989.jpeg?auto=compress&cs=tinysrgb&w=300" },
+const categories:{name:Category;sub:string;image:string}[]=[
+ {name:"Beds",sub:"Sleep & dream",image:items[0].image},{name:"Study",sub:"Learn & create",image:items[2].image},{name:"Storage",sub:"Everything in its place",image:items[3].image},{name:"Playroom",sub:"Room to play",image:items[5].image}
 ];
-
-function Brand() {
-  return <a className="brand" href="/" aria-label="Kids Furniture Kenya home"><span className="brand-kids">KIDS</span><span className="brand-furniture">FÜRNITÜRE</span><span className="brand-kenya">KENYA</span></a>;
-}
-
-function makeEnquiry(item?: Inspiration) {
-  const message = item
-    ? `Hello Kids Furniture Kenya! I'm interested in the ${item.name} (${item.category}) design inspiration on your website. Could you please share the available designs, customisation options and a quotation?`
-    : "Hello Kids Furniture Kenya! I'd like to ask about your children's furniture designs and available options.";
-  window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
-}
-
-export default function ShopPage() {
-  const [view, setView] = useState<"home" | "browse" | "detail" | "saved">("home");
-  const [category, setCategory] = useState<Category | "All">("All");
-  const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState<Inspiration>(inspirations[0]);
-  const [saved, setSaved] = useState<number[]>([]);
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [sort, setSort] = useState("Recommended");
-  const [mobileMenu, setMobileMenu] = useState(false);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const requested = params.get("category");
-    const collection = params.get("collection");
-    if (requested && ["Beds", "Study", "Storage", "Playroom"].includes(requested)) {
-      setCategory(requested as Category);
-      setView("browse");
-    }
-    if (collection) {
-      const found = inspirations.find(item => item.name === collection || item.category === requested);
-      if (found) setSelected(found);
-      setView("browse");
-    }
-  }, []);
-
-  const filtered = useMemo(() => {
-    const term = search.trim().toLowerCase();
-    const items = inspirations.filter(item =>
-      (category === "All" || item.category === category) &&
-      (!term || `${item.name} ${item.category} ${item.description}`.toLowerCase().includes(term))
-    );
-    return sort === "A to Z" ? [...items].sort((a, b) => a.name.localeCompare(b.name)) : items;
-  }, [category, search, sort]);
-
-  const openBrowse = (next: Category | "All" = "All") => {
-    setCategory(next); setSearch(""); setView("browse"); setFilterOpen(false);
-    window.history.replaceState({}, "", next === "All" ? "/shop" : `/shop?category=${encodeURIComponent(next)}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-  const openDetail = (item: Inspiration) => {
-    setSelected(item); setView("detail"); window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-  const toggleSaved = (id: number) => setSaved(current => current.includes(id) ? current.filter(value => value !== id) : [...current, id]);
-  const savedItems = inspirations.filter(item => saved.includes(item.id));
-
-  return <main className="marketplace">
-    <div className="market-topline">Thoughtful furniture for little people <span>♥</span> Proudly Kenyan</div>
-    <header className="market-header">
-      <a className="market-brand" href="/" aria-label="Kids Furniture Kenya home"><Brand /></a>
-      <nav className={mobileMenu ? "market-nav market-nav-open" : "market-nav"}>
-        <button className={view === "home" ? "market-nav-active" : ""} onClick={() => {setView("home");setMobileMenu(false);}}>Home</button>
-        <button className={view === "browse" ? "market-nav-active" : ""} onClick={() => {openBrowse("All");setMobileMenu(false);}}>Shop</button>
-        <a href="/#about">Our story</a>
-        <a href="/#enquiry">Custom furniture</a>
-      </nav>
-      <div className="market-header-actions">
-        <button className="market-icon-button saved-header" aria-label="Saved designs" onClick={() => setView("saved")}><Heart size={19}/>{saved.length > 0 && <span>{saved.length}</span>}</button>
-        <button className="market-header-enquire" onClick={() => makeEnquiry()}>Talk to us <ArrowRight size={15}/></button>
-      </div>
-      <button className="market-menu-button" onClick={() => setMobileMenu(!mobileMenu)} aria-label="Toggle menu">{mobileMenu ? <X/> : <Menu/>}</button>
-    </header>
-
-    {view === "home" && <>
-      <section className="market-home-hero">
-        <div className="market-home-copy">
-          <div className="market-kicker"><Sparkles size={14}/> LITTLE SPACES. BIG DREAMS.</div>
-          <h1>Make room for<br/><span>little</span> wonders.</h1>
-          <p>Thoughtful furniture ideas for growing minds, cosy nights and everyday adventures. Find inspiration for every little corner.</p>
-          <button className="market-primary-button" onClick={() => openBrowse("All")}>Explore furniture <ArrowRight size={17}/></button>
-          <div className="market-home-assurance"><ShieldCheck size={17}/> Personal guidance for your little one&apos;s space</div>
-        </div>
-        <div className="market-home-visual">
-          <img src="https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=1300" alt="Children's bedroom furniture inspiration"/>
-          <div className="market-visual-caption"><span className="market-caption-dot"/> Spaces made for growing</div>
-          <div className="market-visual-spark">✳</div>
-        </div>
-      </section>
-
-      <section className="market-search-row" aria-label="Search furniture inspiration">
-        <label className="market-search-box"><Search size={19}/><input value={search} onChange={e => setSearch(e.target.value)} onKeyDown={e => e.key === "Enter" && openBrowse("All")} placeholder="Search beds, desks, storage..."/><button onClick={() => openBrowse("All")} aria-label="Search"><ArrowRight size={18}/></button></label>
-        <button className="market-filter-shortcut" onClick={() => {openBrowse("All");setFilterOpen(true);}} aria-label="Open filters"><SlidersHorizontal size={19}/></button>
-      </section>
-
-      <section className="market-category-section">
-        <div className="market-section-title"><div><span className="market-eyebrow">FIND THEIR LITTLE FAVOURITE</span><h2>Shop by <em>category</em></h2></div><button onClick={() => openBrowse("All")}>View all <ArrowRight size={15}/></button></div>
-        <div className="market-category-list">
-          {categories.map(item => <button key={item.name} className="market-category-tile" onClick={() => openBrowse(item.name)}><span className="market-category-photo"><img src={item.image} alt=""/></span><span className="market-category-name">{item.name === "All" ? "All furniture" : item.name}</span><small>{item.caption}</small></button>)}
-        </div>
-      </section>
-
-      <section className="market-popular-section">
-        <div className="market-section-title"><div><span className="market-eyebrow">A FEW IDEAS TO GET YOU STARTED</span><h2>Popular <em>inspiration</em></h2></div><button onClick={() => openBrowse("All")}>Explore all <ArrowRight size={15}/></button></div>
-        <div className="market-product-grid market-home-products">
-          {inspirations.slice(0, 4).map(item => <article className="market-product-card" key={item.id}>
-            <button className={saved.includes(item.id) ? "market-favourite is-saved" : "market-favourite"} onClick={() => toggleSaved(item.id)} aria-label={saved.includes(item.id) ? "Remove from saved" : "Save design"}><Heart size={17} fill={saved.includes(item.id) ? "currentColor" : "none"}/></button>
-            <button className="market-product-photo" onClick={() => openDetail(item)}><img src={item.image} alt={item.name + " design inspiration"}/><span>DESIGN INSPIRATION</span></button>
-            <div className="market-product-meta"><span>{item.category}</span><button onClick={() => openDetail(item)} aria-label={"View " + item.name}><ArrowRight size={16}/></button></div>
-            <button className="market-product-name" onClick={() => openDetail(item)}>{item.name}</button>
-            <p>Ask us about designs & options</p>
-          </article>)}
-        </div>
-      </section>
-
-      <section className="market-benefits">
-        <div><ShieldCheck/><span><b>Made with care</b><small>Thoughtful furniture ideas</small></span></div>
-        <div><Truck/><span><b>Kenya, made personal</b><small>Speak directly with our team</small></span></div>
-        <div><RotateCcw/><span><b>Made around your needs</b><small>Ask about custom options</small></span></div>
-      </section>
-      <section className="market-custom-banner"><div><span className="market-eyebrow">HAVE SOMETHING SPECIAL IN MIND?</span><h2>Let&apos;s make their space <em>their own.</em></h2><p>Share your measurements, ideas or a reference photo with our team.</p></div><a href="/#enquiry" className="market-primary-button">Request a custom piece <ArrowRight size={17}/></a></section>
-    </>}
-
-    {view === "browse" && <section className="market-browse-page">
-      <div className="market-breadcrumb"><button onClick={() => setView("home")}><ArrowLeft size={15}/> Home</button><ChevronRight size={13}/> Furniture</div>
-      <div className="market-browse-heading"><div><span className="market-eyebrow">THE KIDS FURNITURE KENYA COLLECTION</span><h1>{category === "All" ? "Find their little favourite." : category + " for little spaces."}</h1><p>Explore design inspiration and tell us what you&apos;d like made for your space.</p></div><div className="market-browse-count">{filtered.length}<small>ideas to explore</small></div></div>
-      <div className="market-browse-tools">
-        <label className="market-search-box"><Search size={18}/><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search furniture inspiration..."/></label>
-        <button className={filterOpen ? "market-tool-button tool-active" : "market-tool-button"} onClick={() => setFilterOpen(!filterOpen)}><SlidersHorizontal size={16}/> Filter</button>
-        <label className="market-sort-select">Sort by <select value={sort} onChange={e => setSort(e.target.value)}><option>Recommended</option><option>A to Z</option></select></label>
-      </div>
-      {filterOpen && <div className="market-filter-panel"><b>Categories</b>{categories.map(item => <button key={item.name} className={category === item.name ? "market-filter-chip selected" : "market-filter-chip"} onClick={() => setCategory(item.name)}>{item.name === "All" ? "All furniture" : item.name}{category === item.name && <Check size={13}/>}</button>)}</div>}
-      <div className="market-category-pills">{categories.map(item => <button key={item.name} className={category === item.name ? "selected" : ""} onClick={() => setCategory(item.name)}>{item.name === "All" ? "All" : item.name}</button>)}</div>
-      {filtered.length ? <div className="market-product-grid market-browse-grid">{filtered.map(item => <article className="market-product-card" key={item.id}>
-        <button className={saved.includes(item.id) ? "market-favourite is-saved" : "market-favourite"} onClick={() => toggleSaved(item.id)} aria-label="Save design"><Heart size={17} fill={saved.includes(item.id) ? "currentColor" : "none"}/></button>
-        <button className="market-product-photo" onClick={() => openDetail(item)}><img src={item.image} alt={item.name + " design inspiration"}/><span>DESIGN INSPIRATION</span></button>
-        <div className="market-product-meta"><span>{item.category}</span><button onClick={() => openDetail(item)} aria-label={"View " + item.name}><ArrowRight size={16}/></button></div>
-        <button className="market-product-name" onClick={() => openDetail(item)}>{item.name}</button>
-        <p>Ask us about designs & options</p>
-      </article>)}</div> : <div className="market-no-results"><Search size={27}/><h3>No matching inspiration found</h3><p>Try another search or choose a different category.</p><button onClick={() => {setSearch("");setCategory("All");}}>Clear search & filters</button></div>}
-      <p className="market-disclaimer">Images are for design inspiration only. They are not confirmed products or current stock. Materials, dimensions, finishes, availability and prices must be confirmed with Kids Furniture Kenya.</p>
-    </section>}
-
-    {view === "detail" && <section className="market-detail-page">
-      <div className="market-breadcrumb"><button onClick={() => setView("browse")}><ArrowLeft size={15}/> Back to furniture</button><ChevronRight size={13}/>{selected.category}</div>
-      <div className="market-detail-layout"><div className="market-detail-image"><img src={selected.image} alt={selected.name + " inspiration"}/><span>DESIGN INSPIRATION</span></div>
-        <div className="market-detail-copy"><span className="market-eyebrow">{selected.category.toUpperCase()} COLLECTION</span><h1>{selected.name}</h1><div className="market-detail-rating"><span>✳</span> A starting point for your own design</div><p>{selected.description}</p><div className="market-detail-rule"/><h3>Make it yours</h3><p>Like this look? Ask our team about possible sizes, materials, colours and custom design options for your space.</p><div className="market-detail-note"><ShieldCheck size={18}/><span><b>Made personal</b><small>Details and quotation confirmed directly with our team.</small></span></div><button className="market-primary-button market-detail-cta" onClick={() => makeEnquiry(selected)}>Enquire about this design <ArrowRight size={17}/></button><button className="market-save-detail" onClick={() => toggleSaved(selected.id)}><Heart size={17} fill={saved.includes(selected.id) ? "currentColor" : "none"}/>{saved.includes(selected.id) ? "Saved to favourites" : "Save this inspiration"}</button></div>
-      </div>
-      <div className="market-related"><div className="market-section-title"><div><span className="market-eyebrow">KEEP EXPLORING</span><h2>More little <em>ideas</em></h2></div><button onClick={() => openBrowse(selected.category)}>View category <ArrowRight size={15}/></button></div><div className="market-product-grid">{inspirations.filter(item => item.id !== selected.id).slice(0, 3).map(item => <article className="market-product-card" key={item.id}><button className="market-product-photo" onClick={() => openDetail(item)}><img src={item.image} alt={item.name}/><span>DESIGN INSPIRATION</span></button><div className="market-product-meta"><span>{item.category}</span></div><button className="market-product-name" onClick={() => openDetail(item)}>{item.name}</button></article>)}</div></div>
-    </section>}
-
-    {view === "saved" && <section className="market-browse-page"><div className="market-breadcrumb"><button onClick={() => setView("home")}><ArrowLeft size={15}/> Home</button><ChevronRight size={13}/> Saved inspiration</div><div className="market-browse-heading"><div><span className="market-eyebrow">YOUR LITTLE WISHLIST</span><h1>Saved inspiration.</h1><p>Keep the ideas you love close while you plan their space.</p></div></div>{savedItems.length ? <div className="market-product-grid market-browse-grid">{savedItems.map(item => <article className="market-product-card" key={item.id}><button className="market-favourite is-saved" onClick={() => toggleSaved(item.id)} aria-label="Remove saved design"><Heart size={17} fill="currentColor"/></button><button className="market-product-photo" onClick={() => openDetail(item)}><img src={item.image} alt={item.name}/><span>DESIGN INSPIRATION</span></button><div className="market-product-meta"><span>{item.category}</span></div><button className="market-product-name" onClick={() => openDetail(item)}>{item.name}</button></article>)}</div> : <div className="market-no-results"><Heart size={27}/><h3>No saved designs yet</h3><p>Tap the heart on any inspiration to keep it here.</p><button onClick={() => openBrowse("All")}>Explore furniture</button></div>}</section>}
-
-    <footer className="market-footer"><div className="market-footer-main"><Brand/><p>Little spaces. Big dreams.<br/>Furniture for their little world.</p><a href="/#enquiry">Talk to our team <ArrowRight size={15}/></a></div><div className="market-footer-bottom"><span>© {new Date().getFullYear()} Kids Furniture Kenya</span><span>Made with care in Kenya <b>♥</b></span></div></footer>
-    <nav className="market-mobile-nav" aria-label="Marketplace navigation"><button className={view === "home" ? "active" : ""} onClick={() => setView("home")}><Home size={19}/><span>Home</span></button><button className={view === "browse" ? "active" : ""} onClick={() => openBrowse("All")}><Grid2X2 size={19}/><span>Shop</span></button><button className={view === "saved" ? "active" : ""} onClick={() => setView("saved")}><Heart size={19}/><span>Saved</span></button><button onClick={() => makeEnquiry()}><MessageCircle size={19}/><span>Enquire</span></button></nav>
-  </main>;
+function Brand(){return <a className="brand" href="/" aria-label="Kids Furniture Kenya home"><span className="brand-kids">KIDS</span><span className="brand-furniture">FÜRNITÜRE</span><span className="brand-kenya">KENYA</span></a>}
+function WhatsApp({selected}:{selected:Item[]}){const message=selected.length? "Hello Kids Furniture Kenya, I would like to enquire about these designs:\\n"+selected.map(x=>"• "+x.name).join("\\n")+"\\nPlease share available options and a quotation.":"Hello Kids Furniture Kenya! I'd like to enquire about your children's furniture and custom options.";return <a className="store-primary" href={"https://wa.me/?text="+encodeURIComponent(message)} target="_blank" rel="noreferrer">Send enquiry <ArrowRight size={16}/></a>}
+export default function ShopPage(){
+ const [page,setPage]=useState<"home"|"shop"|"saved"|"detail"|"cart">("home");
+ const [category,setCategory]=useState<Category|"All">("All");
+ const [query,setQuery]=useState("");
+ const [active,setActive]=useState<Item>(items[0]);
+ const [saved,setSaved]=useState<number[]>([]);
+ const [cart,setCart]=useState<number[]>([]);
+ const [menu,setMenu]=useState(false);
+ const [filters,setFilters]=useState(false);
+ const [sort,setSort]=useState("Featured");
+ const list=useMemo(()=>{let a=items.filter(x=>(category==="All"||x.category===category)&&(!query||[x.name,x.category,x.description].join(" ").toLowerCase().includes(query.toLowerCase())));if(sort==="A–Z")a=[...a].sort((x,y)=>x.name.localeCompare(y.name));return a},[category,query,sort]);
+ const chosen=items.filter(x=>cart.includes(x.id));
+ const goShop=(c:Category|"All"="All")=>{setCategory(c);setQuery("");setPage("shop");setMenu(false);window.scrollTo({top:0,behavior:"smooth"})};
+ const toggle=(id:number,arr:number[],setter:(v:number[])=>void)=>setter(arr.includes(id)?arr.filter(x=>x!==id):[...arr,id]);
+ const detail=(x:Item)=>{setActive(x);setPage("detail");window.scrollTo({top:0,behavior:"smooth"})};
+ const cards=(arr:Item[])=> <div className="store-grid">{arr.map(x=><article className="store-card" key={x.id}><div className="store-card-photo"><button className="store-photo-open" onClick={()=>detail(x)}><img src={x.image} alt={x.name}/></button><span className="store-tag">{x.tag}</span><button className={"store-heart "+(saved.includes(x.id)?"is-saved":"")} onClick={()=>toggle(x.id,saved,setSaved)} aria-label="Save item"><Heart size={17} fill={saved.includes(x.id)?"currentColor":"none"}/></button></div><div className="store-card-info"><small>{x.category}</small><button className="store-card-name" onClick={()=>detail(x)}>{x.name}</button><p>Ask for sizes, finishes & a quote</p><button className="store-add" onClick={()=>toggle(x.id,cart,setCart)}>{cart.includes(x.id)?"Added to enquiry list":"Add to enquiry list"} <Plus size={14}/></button></div></article>)}</div>;
+ return <main className="storefront">
+  <div className="store-strip">Thoughtful furniture for little people <span>♥</span> Proudly Kenyan</div>
+  <header className="store-header"><a href="/" className="store-logo"><Brand/></a><nav className={menu?"store-nav nav-open":"store-nav"}><button onClick={()=>{setPage("home");setMenu(false)}}>Home</button><button onClick={()=>goShop()}>Shop all</button>{categories.map(c=><button key={c.name} onClick={()=>goShop(c.name)}>{c.name}</button>)}</nav><div className="store-actions"><button aria-label="Saved" onClick={()=>setPage("saved")}><Heart/><span>{saved.length}</span></button><button aria-label="Enquiry basket" onClick={()=>setPage("cart")}><ShoppingBag/><span>{cart.length}</span></button></div><button className="store-menu" onClick={()=>setMenu(!menu)} aria-label="Toggle navigation">{menu?<X/>:<Menu/>}</button></header>
+  {page==="home"&&<>
+   <section className="store-hero"><div className="store-hero-copy"><span className="store-overline"><Sparkles size={14}/> LITTLE SPACES. BIG DREAMS.</span><h1>Make room for<br/><em>little wonders.</em></h1><p>Discover thoughtful furniture ideas for growing minds, cosy nights and everyday adventures.</p><button className="store-primary" onClick={()=>goShop()}>Shop the collection <ArrowRight size={16}/></button><div className="store-proof"><ShieldCheck/> Personal guidance for your child's space</div></div><div className="store-hero-image"><img src={items[0].image} alt="Children's bedroom furniture inspiration"/><span>DESIGNED AROUND THEIR WORLD</span></div></section>
+   <section className="store-category"><div className="store-heading"><div><small>FIND THEIR LITTLE FAVOURITE</small><h2>Shop by category</h2></div><button onClick={()=>goShop()}>All categories <ArrowRight size={15}/></button></div><div className="store-category-grid">{categories.map(c=><button className="store-category-card" key={c.name} onClick={()=>goShop(c.name)}><img src={c.image} alt=""/><span>{c.name}</span><small>{c.sub}</small></button>)}</div></section>
+   <section className="store-room-banners"><button onClick={()=>goShop("Beds")}><img src={items[1].image} alt=""/><span><small>RESTFUL LITTLE SPACES</small><b>Bedroom ideas</b><i>Explore beds <ArrowRight size={14}/></i></span></button><button onClick={()=>goShop("Study")}><img src={items[2].image} alt=""/><span><small>MADE FOR BIG IDEAS</small><b>Study corners</b><i>Explore study <ArrowRight size={14}/></i></span></button></section>
+   <section className="store-products"><div className="store-heading"><div><small>THOUGHTFUL PICKS FOR LITTLE SPACES</small><h2>Explore the collection</h2></div><button onClick={()=>goShop()}>View all <ArrowRight size={15}/></button></div>{cards(items.slice(0,4))}<p className="store-note">These images are design inspiration, not confirmation of current stock. Ask our team about available designs and quotations.</p></section>
+   <section className="store-assurance"><div><ShieldCheck/><b>Personal guidance</b><small>Talk through your ideas</small></div><div><Truck/><b>Kenya-wide enquiries</b><small>Ask about delivery options</small></div><div><Sparkles/><b>Made for little lives</b><small>Explore custom possibilities</small></div></section>
+   <section className="store-custom"><div><small>HAVE A DESIGN IN MIND?</small><h2>Let's create their<br/>favourite place.</h2><p>Share your measurements, inspiration or a photo with our team.</p></div><WhatsApp selected={[]}/></section>
+  </>}
+  {page==="shop"&&<section className="store-page"><div className="store-breadcrumb"><button onClick={()=>setPage("home")}><ArrowLeft size={14}/> Home</button><ChevronRight size={13}/> Shop</div><div className="store-heading"><div><small>THE KIDS FURNITURE KENYA COLLECTION</small><h2>{category==="All"?"Shop all furniture":category}</h2><p>Browse ideas and add favourites to your enquiry list.</p></div><span className="store-count">{list.length} ideas</span></div><div className="store-toolbar"><label><Search/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search furniture..."/></label><button onClick={()=>setFilters(!filters)}><SlidersHorizontal/> Filters</button><select value={sort} onChange={e=>setSort(e.target.value)}><option>Featured</option><option>A–Z</option></select></div>{filters&&<div className="store-filter-pills">{(["All",...categories.map(c=>c.name)] as (Category|"All")[]).map(c=><button className={category===c?"active":""} key={c} onClick={()=>setCategory(c)}>{c==="All"?"All categories":c}</button>)}</div>}{cards(list)}{!list.length&&<div className="store-empty"><Search/><h3>No matching designs</h3><p>Try a different search or category.</p><button onClick={()=>{setQuery("");setCategory("All")}}>Clear filters</button></div>}<p className="store-note">Images are for design inspiration only. Availability, dimensions, materials and prices must be confirmed with our team.</p></section>}
+  {page==="detail"&&<section className="store-page"><div className="store-breadcrumb"><button onClick={()=>goShop(active.category)}><ArrowLeft size={14}/> Back to {active.category}</button><ChevronRight size={13}/>{active.name}</div><div className="store-detail"><img src={active.image} alt={active.name}/><div><small>{active.category.toUpperCase()} COLLECTION</small><h1>{active.name}</h1><p>{active.description}</p><p>Like this design? Ask us about possible sizes, materials, colours and custom options for your space.</p><div className="store-detail-trust"><ShieldCheck/> Details and quotation confirmed directly with our team.</div><button className="store-primary" onClick={()=>toggle(active.id,cart,setCart)}>{cart.includes(active.id)?"Remove from enquiry list":"Add to enquiry list"} <Plus size={16}/></button><WhatsApp selected={[active]}/></div></div><div className="store-heading"><div><small>KEEP EXPLORING</small><h2>You may also like</h2></div></div>{cards(items.filter(x=>x.id!==active.id).slice(0,3))}</section>}
+  {page==="saved"&&<section className="store-page"><div className="store-breadcrumb"><button onClick={()=>setPage("home")}><ArrowLeft size={14}/> Home</button><ChevronRight size={13}/> Saved items</div><div className="store-heading"><div><small>YOUR WISHLIST</small><h2>Saved inspiration</h2></div></div>{saved.length?cards(items.filter(x=>saved.includes(x.id))):<div className="store-empty"><Heart/><h3>Your wishlist is empty</h3><p>Tap the heart on a design to save it here.</p><button onClick={()=>goShop()}>Explore furniture</button></div>}</section>}
+  {page==="cart"&&<section className="store-page"><div className="store-breadcrumb"><button onClick={()=>setPage("home")}><ArrowLeft size={14}/> Home</button><ChevronRight size={13}/> Enquiry list</div><div className="store-heading"><div><small>YOUR SELECTED DESIGNS</small><h2>Enquiry basket</h2><p>Send your selected designs to our team to confirm details and pricing.</p></div></div>{chosen.length?<><div className="store-basket">{chosen.map(x=><div key={x.id}><img src={x.image} alt=""/><span><b>{x.name}</b><small>{x.category} · Design inspiration</small></span><button onClick={()=>toggle(x.id,cart,setCart)} aria-label="Remove"><Trash2/></button></div>)}</div><WhatsApp selected={chosen}/></>:<div className="store-empty"><ShoppingBag/><h3>Your enquiry basket is empty</h3><p>Add designs you would like to ask us about.</p><button onClick={()=>goShop()}>Browse furniture</button></div>}</section>}
+  <footer className="store-footer"><Brand/><p>Thoughtful furniture for little people.</p><span>© {new Date().getFullYear()} Kids Furniture Kenya · Proudly Kenyan</span></footer>
+  <nav className="store-bottom-nav"><button className={page==="home"?"active":""} onClick={()=>setPage("home")}>⌂<small>Home</small></button><button className={page==="shop"?"active":""} onClick={()=>goShop()}>▦<small>Shop</small></button><button className={page==="saved"?"active":""} onClick={()=>setPage("saved")}><Heart/><small>Saved</small></button><button className={page==="cart"?"active":""} onClick={()=>setPage("cart")}><ShoppingBag/><small>Enquiry ({cart.length})</small></button></nav>
+ </main>
 }
