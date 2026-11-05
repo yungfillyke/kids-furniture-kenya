@@ -242,3 +242,35 @@
 @media(max-width:640px){.store-strip{font-size:8px;height:27px}.store-header{height:65px;padding:0 5%;gap:10px}.store-logo .brand{transform:scale(.75);transform-origin:left center}.store-menu{display:block;margin-left:auto}.store-actions{gap:6px}.store-actions button{width:34px;height:34px}.store-nav{display:none;position:absolute;top:65px;left:0;right:0;background:#fff;padding:15px 6%;box-shadow:0 12px 20px #00000012;flex-direction:column;align-items:stretch;gap:3px}.store-nav.nav-open{display:flex}.store-nav button{text-align:left;padding:10px 0;font-size:12px}
 .store-hero{grid-template-columns:1fr;padding:34px 5% 38px;gap:24px}.store-hero h1{font-size:52px;letter-spacing:-2.7px;margin:14px 0}.store-hero-copy>p{font-size:11px}.store-hero-image{height:245px;margin-left:8px}.store-hero-image span{left:-8px;font-size:8px}.store-category,.store-products,.store-page{padding:35px 5% 42px}.store-heading h2{font-size:26px}.store-category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.store-category-card img{height:130px}.store-category-card span{font-size:12px}.store-room-banners{grid-template-columns:1fr;padding:0 5% 32px;gap:11px}.store-room-banners>button{height:155px}.store-room-banners b{font-size:23px}.store-products{padding-top:35px}.store-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.store-card-photo{height:155px}.store-card-info{padding:9px 9px 0}.store-card-name{font-size:12px}.store-card-info p{font-size:8px}.store-add{font-size:8px;padding:7px}.store-assurance{grid-template-columns:1fr;gap:16px;padding:22px 8%}.store-custom{padding:33px 6%;display:block}.store-custom h2{font-size:31px}.store-custom .store-primary{margin-top:12px}.store-footer{padding:26px 6% 82px;display:flex;flex-wrap:wrap}.store-footer p{order:3;width:100%;margin:0}.store-footer>span{width:100%}.store-page>.store-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.store-page .store-card-photo{height:155px}.store-toolbar{flex-wrap:wrap}.store-toolbar label{flex-basis:100%;max-width:none}.store-toolbar>button,.store-toolbar select{height:38px}.store-detail{grid-template-columns:1fr;gap:20px}.store-detail>img{height:300px}.store-detail h1{font-size:38px}.store-bottom-nav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;z-index:40;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--store-line);padding:8px 3% max(8px,env(safe-area-inset-bottom));box-shadow:0 -5px 20px #0000000a}.store-bottom-nav button{border:0;background:none;color:#8a8a8a;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:17px;cursor:pointer}.store-bottom-nav button.active{color:var(--store-blue)}.store-bottom-nav small{font-size:8px}.store-bottom-nav svg{width:17px;height:17px}}
 @media(max-width:370px){.store-hero h1{font-size:46px}.store-card-photo{height:137px}.store-page .store-card-photo{height:137px}}
+
+
+/* Homepage refinement: full-bleed hero and floating navigation */
+.store-hero{position:relative;display:flex;align-items:center;min-height:500px;padding:65px 9%;background-color:var(--store-cream);background-image:linear-gradient(90deg,rgba(245,240,232,.97) 0%,rgba(245,240,232,.9) 38%,rgba(245,240,232,.18) 76%,rgba(245,240,232,.05) 100%),url("https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=1800");background-size:cover;background-position:center 52%;overflow:hidden}
+.store-hero-copy{position:relative;z-index:2;max-width:570px}
+.store-hero h1{font-size:clamp(50px,5.5vw,76px);margin:0 0 20px}
+.store-hero-copy>p{font-size:14px;max-width:420px;color:#555}
+.store-hero .store-primary{margin-top:5px;padding:15px 22px}
+.store-overline,.store-hero-image{display:none!important}
+.store-bottom-nav{position:fixed;z-index:60;left:22px;top:50%;bottom:auto;transform:translateY(-50%);width:82px;padding:17px 9px;display:flex;flex-direction:column;align-items:stretch;gap:12px;background:#fff;border:1px solid #eeeeee;border-radius:42px;box-shadow:0 12px 38px #00000020}
+.store-bottom-nav button{min-height:61px;border:0;background:transparent;color:#92969a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:20px;cursor:pointer;border-radius:30px;transition:background .2s,color .2s}
+.store-bottom-nav button.active{color:var(--store-orange);font-weight:800}
+.store-bottom-nav button small{display:block;font-size:10px;line-height:1.1}
+.store-bottom-nav button svg{width:21px;height:21px;stroke-width:1.8}
+.store-nav-icon{height:21px;display:grid;place-items:center;font-size:25px;line-height:1}
+.store-profile-icon{width:19px;height:19px;border:1.8px solid currentColor;border-radius:50%;font-size:8px;display:grid;place-items:center}
+.store-profile-panel{max-width:560px;padding:28px;background:#faf9f6;border:1px solid var(--store-line)}
+.store-profile-panel h3{font-size:20px;margin:0 0 8px}
+.store-profile-panel p{font-size:12px;color:#777;line-height:1.7;margin:0 0 18px}
+.store-profile-link{display:flex;align-items:center;gap:10px;margin-top:16px;padding:10px 0;border:0;background:none;color:var(--store-blue);font-size:11px;font-weight:800;cursor:pointer}
+@media(max-width:1000px){.store-bottom-nav{left:12px;width:70px}}
+@media(max-width:640px){
+ .store-hero{min-height:490px;padding:44px 7% 55px;background-image:linear-gradient(0deg,rgba(245,240,232,.96) 0%,rgba(245,240,232,.88) 43%,rgba(245,240,232,.12) 100%),url("https://images.pexels.com/photos/4682146/pexels-photo-4682146.jpeg?auto=compress&cs=tinysrgb&w=1200");background-position:center top}
+ .store-hero-copy{align-self:end;margin-top:220px}
+ .store-hero h1{font-size:clamp(43px,11vw,56px);letter-spacing:-2.8px}
+ .store-hero-copy>p{font-size:11px;line-height:1.7}
+ .store-hero .store-primary{margin-top:8px}
+ .store-bottom-nav{left:50%;top:auto;bottom:max(17px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(88vw,430px);padding:10px 15px;display:grid;grid-template-columns:repeat(4,1fr);flex-direction:row;gap:3px;border-radius:50px;box-shadow:0 12px 35px #00000024}
+ .store-bottom-nav button{min-height:52px;gap:3px;border-radius:30px;font-size:18px}
+ .store-bottom-nav button small{font-size:9px}
+ .store-footer{padding-bottom:95px}
+}
